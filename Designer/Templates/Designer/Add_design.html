@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Caption</td>
+                <td><input type="text" name="txt_caption" id=""></td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>
+                    <textarea name="txt_description" id="" cols="20" rows="5"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>Design</td>
+                <td><input type="file" name="txt_design" id=""></td>
+            </tr>
+            <tr>
+                <td>Rate</td>
+                <td><input type="text" name="txt_rate" id=""></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Add"></td>
+            </tr>
+        </table>
+    </form>
+    {% if msg %}
+    <script>
+        alert("{{ msg }}");
+        window.location="{% url 'Designer:adddesign' %}";
+    </script>
+    {% endif %}
+    <table cellpadding="10">
+        <tr>
+            <td>#</td>
+            <td>Caption</td>
+            <td>Design</td>
+            <td>Description</td>
+            <td>Rate</td>
+            <td>Action</td>
+        </tr>
+        {% for i in design %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.design_caption}}</td>
+            <td><img src="{{i.design_file.url}}" width="150" height="150" alt=""></td>
+            <td width="200">{{i.design_description}}</td>
+            <td>{{i.design_rate}}</td>
+            <td>
+                {% if i.design_status == 1 %}
+                <span style="color: red;">Sold</span>
+                {% else %}
+                <a href="{% url 'Designer:deletedesign' i.id %}">Delete</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

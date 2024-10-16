@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="card">
+        <div><img src="{{design.design_file.url}}" width="150" height="150" alt=""></div>
+        <div class="main-cont">Caption : {{design.design_caption}}</div>
+        <div class="main-cont">Rate : {{design.design_rate}}</div>
+        <div>Designer : {{design.designer.designer_name}}</div>
+        <div>Uploaded Date : {{design.design_upload_date}}</div>
+        <div class="desc-cont">Description : <p>{{design.design_description}}</p></div>
+        <div><a href="{% url 'Company:payment' design.id %}">Buy</a></div>
+    </div>
+</body>
+</html>

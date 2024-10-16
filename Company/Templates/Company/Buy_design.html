@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="main">
+        {% for i in design %}
+        <div class="card">
+            <div><img src="{{i.design_file.url}}" width="150" height="150" alt=""></div>
+            <div class="main-cont">Caption : {{i.design_caption}}</div>
+            <div class="main-cont">Rate : {{i.design_rate}}</div>
+            <div class="desc-cont">Description : <p>{{i.design_description}}</p></div>
+            <div><a href="{% url 'Company:viewdesigndetails' i.id %}">Details</a></div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
