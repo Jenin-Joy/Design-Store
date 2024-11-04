@@ -1,3 +1,5 @@
+{% extends 'Designer/Head.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,9 +8,10 @@
     <title>Document</title>
 </head>
 <body>
-    Welcome Designer
+    Welcome  {{designer.designer_name}}
     <br>
-    <a href="{% url 'Designer:profile' %}">My profile</a><br>
-    <a href="{% url 'Designer:adddesign' %}">Add Design</a>
+    <!-- <a href="{% url 'Designer:profile' %}">My profile</a><br>
+    <a href="{% url 'Designer:adddesign' %}">Add Design</a> -->
 </body>
 </html>
+{% endblock content %}

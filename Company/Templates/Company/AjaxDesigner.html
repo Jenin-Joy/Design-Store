@@ -1,0 +1,12 @@
+<div class="main">
+    {% for i in designer %}
+    <div class="card">
+        <div><img src="{{i.designer_photo.url}}" width="150" height="150" alt=""></div>
+        <div class="main-cont">Name : {{i.designer_name}}</div>
+        <div class="main-cont">Contact : {{i.designer_contact}}</div>
+        <div class="main-cont">Email : {{i.designer_email}}</div>
+        <div class="desc-cont"><p>Address : {{i.designer_address}}</p></div>
+        <div><a href="{% url 'Company:viewdesign' i.id %}">VIew Work</a></div>
+    </div>
+    {% endfor %}
+</div>

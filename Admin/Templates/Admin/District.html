@@ -1,3 +1,5 @@
+{% extends 'Admin/Head.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,13 +10,13 @@
 <body>
     <form action="" method="post">
         {% csrf_token %}
-        <table>
+        <table align="center" cellpadding="10">
             <tr>
                 <td>District</td>
-                <td><input type="text" name="txt_name" id="" value="{{editdistrict.district_name}}"></td>
+                <td><input type="text" name="txt_name" id="" class="form-control" value="{{editdistrict.district_name}}"></td>
             </tr>
             <tr>
-                <td colspan="2" align="center"><input type="submit" value="Add"></td>
+                <td colspan="2" align="center"><input type="submit" class="btn btn-primary" value="Add"></td>
             </tr>
         </table>
     </form>
@@ -24,7 +26,7 @@
         window.location="{% url 'Admin:district' %}";
     </script>
     {% endif %}
-    <table>
+    <table class="table table-hover" align="center">
         <tr>
             <td>#</td>
             <td>District</td>
@@ -35,11 +37,12 @@
             <td>{{forloop.counter}}</td>
             <td>{{i.district_name}}</td>
             <td>
-                <a href="{% url 'Admin:deletedistrict' i.id %}">Delete</a>
-                <a href="{% url 'Admin:editdistrict' i.id %}">Edit</a>
+                <a href="{% url 'Admin:deletedistrict' i.id %}" class="btn btn-primary">Delete</a>
+                <a href="{% url 'Admin:editdistrict' i.id %}" class="btn btn-primary">Edit</a>
             </td>
         </tr>
         {% endfor %}
     </table>
 </body>
 </html>
+{% endblock content %}

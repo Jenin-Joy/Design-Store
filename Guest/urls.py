@@ -8,4 +8,6 @@ urlpatterns = [
     path("ajaxplace/",views.ajaxplace,name="ajaxplace"),
 
     path("login/",views.login,name="login"),
+    path("",views.index,name="index"),
+
 ]

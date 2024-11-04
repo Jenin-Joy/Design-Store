@@ -48,12 +48,22 @@ def login(request):
         admincount = tbl_admin.objects.filter(admin_email=email,admin_password=password).count()
         if companycount > 0:
             company = tbl_company.objects.get(company_email=email, company_password=password)
-            request.session["cid"] = company.id
-            return redirect("Company:homepage")
+            if company.company_status == 0:
+                return render(request,"Guest/Login.html",{"msg":"Your Registration is Pending"})
+            elif company.company_status == 2:
+                return render(request,"Guest/Login.html",{"msg":"Your Registration is Rejected"})
+            else:
+                request.session["cid"] = company.id
+                return redirect("Company:homepage")
         elif designercount > 0:
             designer = tbl_designer.objects.get(designer_email=email, designer_password=password)
-            request.session["did"] = designer.id
-            return redirect("Designer:homepage")
+            if designer.designer_status == 0:
+                return render(request,"Guest/Login.html",{"msg":"Your Registration is Pending"})
+            elif designer.designer_status == 2:
+                return render(request,"Guest/Login.html",{"msg":"Your Registration is Rejected"})
+            else:
+                request.session["did"] = designer.id
+                return redirect("Designer:homepage")
         elif admincount > 0:
             admin = tbl_admin.objects.get(admin_email=email, admin_password=password)
             request.session["aid"] = admin.id
@@ -62,3 +72,6 @@ def login(request):
             return render(request,"Guest/Login.html",{"msg":"Invalid Email or Password"})
     else:
         return render(request,"Guest/Login.html")
+
+def index(request):
+    return render(request,"Guest/index.html")

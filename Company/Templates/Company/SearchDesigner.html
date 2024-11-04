@@ -1,0 +1,77 @@
+{% extends 'Company/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input[type="text"] {
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid gray;
+        }
+        .main {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .card{
+            padding: 16px;
+            background-color: white;
+            box-shadow: 0 0 20px gray;
+            width: fit-content;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .main-cont{
+            font-size: 16px;
+        }
+        .desc-cont{
+            font-size: 16px;
+            width: 200px;
+        }
+        p {
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow-y: scroll;
+            display: -webkit-box;
+        }
+        p {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body onload="getDesigner()">
+    <table align="center" cellpadding="10">
+        <tr>
+            <td>Designer Name</td>
+            <td><input type="text" name="txt_designer" onkeyup="getDesigner()" id="txt_designer"></td>
+        </tr>
+    </table>
+    <div class="main" id="result"></div>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function getDesigner() {
+        var name = document.getElementById("txt_designer").value
+        var ur = "{% url 'Company:ajaxdesigner' %}"
+        $.ajax({
+            url: ur,
+            data: { name: name, },
+            success: function (data) {
+                $("#result").html(data);
+            },
+        });
+    }
+</script>
+{% endblock content %}

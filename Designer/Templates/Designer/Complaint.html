@@ -1,0 +1,57 @@
+{% extends 'Designer/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Title</td>
+                <td><input type="text" name="txt_title" id=""></td>
+            </tr>
+            <tr>
+                <td>Content</td>
+                <td><textarea name="txt_content" id="" cols="20" rows="5"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center"><input type="submit" value="Send"></td>
+            </tr>
+        </table>
+    </form>
+    <table>
+        <tr>
+            <td>#</td>
+            <td>Title</td>
+            <td>Content</td>
+            <td>Reply</td>
+        </tr>
+        {% for i in complaint %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.complaint_title}}</td>
+            <td>{{i.complaint_content}}</td>
+            <td>
+                {% if i.complaint_status == 0 %}
+                <span style="color: red;">Reply Not Avalible</span>
+                {% else %}
+                {{i.complaint_reply}}
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% if msg %}
+    <script>
+        alert("{{ msg }}");
+        window.location="{% url 'Designer:complaints' %}";
+    </script>
+    {% endif %}
+</body>
+</html>
+{% endblock content %}

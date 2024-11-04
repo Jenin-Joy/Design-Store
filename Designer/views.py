@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from Guest.models import tbl_designer,tbl_company
 from Designer.models import *
 import os
@@ -8,78 +8,98 @@ import numpy as np
 # Create your views here.
 
 def homepage(request):
-    return render(request,"Designer/HomePage.html")
+    if "did" in request.session:
+        designer = tbl_designer.objects.get(id=request.session["did"])
+        return render(request,"Designer/HomePage.html",{"designer":designer})
+    else:
+        return redirect("Guest:login")
+
+def logout(request):
+    del request.session["did"]
+    return redirect("Guest:login")
 
 def profile(request):
-    designer = tbl_designer.objects.get(id=request.session["did"])
-    return render(request,"Designer/MyProfile.html",{"designer":designer})
+    if "did" in request.session:
+        designer = tbl_designer.objects.get(id=request.session["did"])
+        return render(request,"Designer/MyProfile.html",{"designer":designer})
+    else:
+        return redirect("Guest:login")
 
 def editprofile(request):
-    designer = tbl_designer.objects.get(id=request.session["did"])
-    if request.method == "POST":
-        designer.designer_name = request.POST["txt_name"]
-        designer.designer_email = request.POST["txt_email"]
-        designer.designer_contact = request.POST["txt_contact"]
-        designer.save()
-        return render(request,"Designer/MyProfile.html",{"msg":"Profile updated"})
+    if "did" in request.session:
+        designer = tbl_designer.objects.get(id=request.session["did"])
+        if request.method == "POST":
+            designer.designer_name = request.POST["txt_name"]
+            designer.designer_email = request.POST["txt_email"]
+            designer.designer_contact = request.POST["txt_contact"]
+            designer.save()
+            return render(request,"Designer/MyProfile.html",{"msg":"Profile updated"})
+        else:
+            return render(request,"Designer/EditProfile.html",{"designer":designer})
     else:
-        return render(request,"Designer/EditProfile.html",{"designer":designer})
+        return redirect("Guest:login")
 
 def changepassword(request):
-    designer = tbl_designer.objects.get(id=request.session["did"])
-    if request.method == "POST":
-        old_password = request.POST["txt_old"]
-        new_password = request.POST["txt_new"]
-        confirm_password = request.POST["txt_con"]
-        if designer.designer_password == old_password:
-            if new_password == confirm_password:
-                designer.designer_password = new_password
-                designer.save()
-                return render(request,"Designer/MyProfile.html",{"msg":"Password changed"})
+    if "did" in request.session:
+        designer = tbl_designer.objects.get(id=request.session["did"])
+        if request.method == "POST":
+            old_password = request.POST["txt_old"]
+            new_password = request.POST["txt_new"]
+            confirm_password = request.POST["txt_con"]
+            if designer.designer_password == old_password:
+                if new_password == confirm_password:
+                    designer.designer_password = new_password
+                    designer.save()
+                    return render(request,"Designer/MyProfile.html",{"msg":"Password changed"})
+                else:
+                    return render(request,"Designer/ChangePassword.html",{"msg":"Confirm Passwords do not match"})
             else:
-                return render(request,"Designer/ChangePassword.html",{"msg":"Confirm Passwords do not match"})
+                return render(request,"Designer/ChangePassword.html",{"msg":"Old Password is incorrect"})
         else:
-            return render(request,"Designer/ChangePassword.html",{"msg":"Old Password is incorrect"})
+            return render(request,"Designer/ChangePassword.html")
     else:
-        return render(request,"Designer/ChangePassword.html")
+        return redirect("Guest:login")
 
 def adddesign(request):
-    design = tbl_design.objects.all()
-    if request.method == "POST":
-        design = tbl_design.objects.create(
-            design_caption=request.POST.get('txt_caption'),
-            design_rate=request.POST.get('txt_rate'),
-            design_file=request.FILES.get("txt_design"),
-            design_description=request.POST.get('txt_description'),
-            designer=tbl_designer.objects.get(id=request.session["did"]),
-        )
-        # print(design)
-        tbl_designcopyright.objects.create(
-            design = tbl_design.objects.get(id=design.id)
-        )
-        # ImageEncode(design.id)
-        checkdesign = tbl_design.objects.get(id=design.id)
-        photo = checkdesign.design_file.url
-        photo=photo[1:]
-        # print(photo)
-        decoded_data = decode(photo)
-        # print("decoded_data",decoded_data)
-        try:
-            designer = tbl_designer.objects.filter(id=decoded_data).count()
-            company = tbl_company.objects.filter(id=decoded_data).count()
-        except:
-            ImageEncode(design.id,request.session["did"])
-            return render(request,"Designer/Add_design.html",{"msg":"Design added successfully"})
-        if(designer > 0 or company > 0):
-            cdesign = tbl_design.objects.get(id=design.id)
-            os.remove(str(cdesign.design_file))  # Remove the file
-            tbl_designcopyright.objects.get(design=cdesign.id).delete()
-            cdesign.delete()
-            return render(request,"Designer/Add_design.html",{"msg":"CopyRight Issued By Another User Can not Use This Design"})
+    if "did" in request.session:
+        design = tbl_design.objects.all()
+        if request.method == "POST":
+            design = tbl_design.objects.create(
+                design_caption=request.POST.get('txt_caption'),
+                design_rate=request.POST.get('txt_rate'),
+                design_file=request.FILES.get("txt_design"),
+                design_description=request.POST.get('txt_description'),
+                designer=tbl_designer.objects.get(id=request.session["did"]),
+            )
+            # print(design)
+            tbl_designcopyright.objects.create(
+                design = tbl_design.objects.get(id=design.id)
+            )
+            # ImageEncode(design.id)
+            checkdesign = tbl_design.objects.get(id=design.id)
+            photo = checkdesign.design_file.url
+            photo=photo[1:]
+            # print(photo)
+            decoded_data = decode(photo)
+            # print("decoded_data",decoded_data)
+            try:
+                designer = tbl_designer.objects.filter(id=decoded_data).count()
+                company = tbl_company.objects.filter(id=decoded_data).count()
+            except:
+                ImageEncode(design.id,request.session["did"])
+                return render(request,"Designer/Add_design.html",{"msg":"Design added successfully"})
+            if(designer > 0 or company > 0):
+                cdesign = tbl_design.objects.get(id=design.id)
+                os.remove(str(cdesign.design_file))  # Remove the file
+                tbl_designcopyright.objects.get(design=cdesign.id).delete()
+                cdesign.delete()
+                return render(request,"Designer/Add_design.html",{"msg":"CopyRight Issued By Another User Can not Use This Design"})
+            else:
+                return render(request,"Designer/Add_design.html",{"design":design})
         else:
             return render(request,"Designer/Add_design.html",{"design":design})
     else:
-        return render(request,"Designer/Add_design.html",{"design":design})
+        return redirect("Guest:login")
 
 def deletedesign(request,id):
     tbl_designcopyright.objects.get(design=id).delete()
@@ -186,3 +206,21 @@ def decode(image_name):
         if decoded_data[-5:] == "=====":
             break
     return decoded_data[:-5]
+
+def complaints(request):
+    if "did" in request.session:
+        complaint = tbl_complaint.objects.filter(designer=request.session["did"])
+        if request.method == "POST":
+            tbl_complaint.objects.create(complaint_title=request.POST.get("txt_title"),complaint_content=request.POST.get("txt_content"),designer=tbl_designer.objects.get(id=request.session["did"]))
+            return render(request,"Designer/Complaint.html",{"msg":"Complaint Send Sucessfully.."})
+        else:
+            return render(request,"Designer/Complaint.html",{"complaint":complaint})
+    else:
+        return redirect("Guest:login")
+
+def viewbooking(request):
+    if "did" in request.session:
+        design = tbl_designcopyright.objects.filter(copyright_status=1,design__designer=request.session["did"])
+        return render(request,"Designer/ViewBooking.html",{"booking":design})
+    else:
+        return redirect("Guest:login")

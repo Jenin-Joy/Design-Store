@@ -1,0 +1,29 @@
+{% extends 'Designer/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>#</td>
+            <td>Company</td>
+            <td>Design</td>
+            <td>Photo</td>
+        </tr>
+        {% for i in booking %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.company.company_name}}</td>
+            <td>{{i.design.design_caption}}</td>
+            <td><a href="{{i.design.design_file.url}}"><img src="{{i.design.design_file.url}}" width="80" alt=""></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+{% endblock content %}

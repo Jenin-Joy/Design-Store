@@ -1,0 +1,62 @@
+{% extends 'Admin/Head.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .mcard{
+            padding: 16px;
+            background-color: white;
+            box-shadow: 0 0 20px gray;
+            width: fit-content;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .main-cont{
+            font-size: 14px;
+        }
+        .desc-cont{
+            font-size: 14px;
+            width: 200px;
+        }
+        p {
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow-y: scroll;
+            display: -webkit-box;
+        }
+        p {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        {% for i in design %}
+        <div class="mcard">
+            <div><img src="{{i.design_file.url}}" width="150" height="150" alt=""></div>
+            <div class="main-cont">Caption : {{i.design_caption}}</div>
+            <div class="main-cont">Rate : {{i.design_rate}}</div>
+            <div class="main-cont">Designer : {{i.designer.designer_name}}</div>
+            <div class="main-cont">Uploaded Date : {{i.design_upload_date}}</div>
+            <div  class="desc-cont"> <p>Description :{{i.design_description}}</p></div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+{% endblock content %}

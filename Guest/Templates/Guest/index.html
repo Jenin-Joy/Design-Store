@@ -1,0 +1,208 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+   
+    <head>
+        <meta charset="utf-8"/>
+        <title>Design Store</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <meta content="FlameOnePage freebie theme for web startups by FairTech SEO." name="description"/>
+        <meta content="FairTech" name="author"/>
+        <link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link href="{% static 'Main/vendor/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'Main/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'Main/css/animate.css' %}" rel="stylesheet">
+        <link href="{% static 'Main/vendor/swiper/css/swiper.min.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'Main/css/layout.min.css' %}" rel="stylesheet" type="text/css"/>
+        <link rel="shortcut icon" href="favicon.ico"/>
+        <style>
+            .logo {
+                display: flex;
+                font-size: 25px;
+                gap: 7px;
+                color: white;
+            }
+            .logo-color {
+                color: #ff0000;
+                font-weight: bold;
+            }
+            .logo-black{
+                color: black !important;
+            }
+        </style>
+    </head>
+   
+  
+    <body id="body" data-spy="scroll" data-target=".header">
+
+          <header class="header navbar-fixed-top">
+              <nav class="navbar" role="navigation">
+                <div class="container">
+                      <div class="menu-container js_nav-item">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="toggle-icon"></span>
+                        </button>
+
+                          <div class="logo">
+                            <a class="logo-wrap" href="#body">
+                                <!-- <img class="logo-img logo-img-main" src="{% static 'Main/img/logo.png' %}" alt="FlameOnePage Logo">
+                                <img class="logo-img logo-img-active" src="{% static 'Main/img/logo-dark.png' %}" alt="FlameOnePage Dark Logo"> -->
+                                <div class="logo"><div class="logo-color">Design</div> <div id="store">Store</div></div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="collapse navbar-collapse nav-collapse">
+					
+					<!--div class="language-switcher">
+					  <ul class="nav-lang">
+                        <li><a class="active" href="#">EN</a></li>
+					    <li><a href="#">DE</a></li>
+						<li><a href="#">FR</a></li>
+					  </ul>
+					</div---> 
+					
+                        <div class="menu-container">
+                            <ul class="nav navbar-nav navbar-nav-right">
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'Guest:index' %}">Home</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'Guest:company' %}">Company</a></li>
+								<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'Guest:designer' %}">Designer</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'Guest:login' %}">Login</a></li>
+								<!-- <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#work">Credentials</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#pricing">Pricing</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#contact">Contact</a></li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+			</header>
+       
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <div class="container">
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                </ol>
+            </div>
+
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img class="img-responsive" src="{% static 'Main/img/mainbg.jpg' %}" alt="Slider Image">
+                    <div class="container">
+                        <div class="carousel-centered">
+                            <div class="margin-b-40">
+                                <h1 class="carousel-title">Welcome To Design Store</h1>
+                                <p class="color-white">Design is the silent ambassador of your brand, shaping experiences and crafting stories one pixel at a time.</p>
+                            </div>
+                            <a href="{% url 'Guest:login' %}" class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Login</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="item">
+                    <img class="img-responsive" src="{% static 'Main/img/mainbg.jpg' %}" alt="Slider Image">
+                    <div class="container">
+                        <div class="carousel-centered">
+                            <div class="margin-b-40">
+                                <h2 class="carousel-title">Personal Approach</h2>
+                                <p class="color-white">Lorem ipsum dolor amet consectetur adipiscing dolore magna aliqua <br/> enim minim estudiat veniam siad venumus dolore</p>
+                            </div>
+                            <a href="#" class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Take a Tour</a>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <!--========== SLIDER ==========-->
+            <!-- Google Map -->
+            <div class="map height-300">
+			<!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2724.0694570748947!2d7.455080415208266!3d46.94067397914616!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478e39d0cf20e8d1%3A0x9daac4cd3043d067!2sThunstrasse+50%2C+3005+Bern%2C+Switzerland!5e0!3m2!1sen!2sin!4v1496749852928" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe> -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31435.33493222133!2d76.56729856126204!3d9.982382067801035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b07dd8c9df6f0f3%3A0xb4506cffcc7062e5!2sMuvattupuzha%2C%20Kerala!5e0!3m2!1sen!2sin!4v1729077111088!5m2!1sen!2sin" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
+			</div>
+        </div>
+        <!-- End Contact -->
+        <!--========== END PAGE LAYOUT ==========-->
+
+        <!--========== FOOTER ==========-->
+        <footer class="footer">
+            <!-- Links -->
+            <div class="section-seperator">
+                <div class="content-md container">
+                    <div class="row">
+                        <div class="col-sm-2 sm-margin-b-30">
+                            <!-- List -->
+                            <ul class="list-unstyled footer-list">
+                                <li class="footer-list-item"><a href="{% url 'Guest:index' %}">Home</a></li>
+                                <!-- <li class="footer-list-item"><a href="#about">Team</a></li>
+                                <li class="footer-list-item"><a href="#work">Credentials</a></li>
+                                <li class="footer-list-item"><a href="#contact">Contact</a></li> -->
+                            </ul>
+                            <!-- End List -->
+                        </div>
+                        <div class="col-sm-2 sm-margin-b-30">
+                            <!-- List -->
+                            <ul class="list-unstyled footer-list">
+                                <li class="footer-list-item"><a href="{% url 'Guest:company' %}">Company</a></li>
+                                <!-- <li class="footer-list-item"><a href="#">Facebook</a></li>
+                                <li class="footer-list-item"><a href="#">Instagram</a></li>
+                                <li class="footer-list-item"><a href="#">YouTube</a></li> -->
+                            </ul>
+                            <!-- End List -->
+                        </div>
+                        <div class="col-sm-3">
+                            <!-- List -->
+                            <ul class="list-unstyled footer-list">
+                                <li class="footer-list-item"><a href="{% url 'Guest:designer' %}">Designer</a></li>
+                                <!-- <li class="footer-list-item"><a href="#">Privacy Policy</a></li>
+                                <li class="footer-list-item"><a href="#">Terms &amp; Conditions</a></li> -->
+                            </ul>
+                            <!-- End List -->
+                        </div>
+                        <div class="col-sm-3">
+                            <!-- List -->
+                            <ul class="list-unstyled footer-list">
+                                <li class="footer-list-item"><a href="{% url 'Guest:login' %}">Login</a></li>
+                                <!-- <li class="footer-list-item"><a href="#">Privacy Policy</a></li>
+                                <li class="footer-list-item"><a href="#">Terms &amp; Conditions</a></li> -->
+                            </ul>
+                            <!-- End List -->
+                        </div>
+                    </div>
+                    <!--// end row -->
+                </div>
+            </div>
+            <!-- End Links -->
+        </footer>
+        <!--========== END FOOTER ==========-->
+
+        <!-- Back To Top -->
+        <a href="javascript:void(0);" class="js-back-to-top back-to-top">Top</a>
+
+        <!-- JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+        <!-- CORE PLUGINS -->
+        <script src="{% static 'Main/vendor/jquery.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'Main/vendor/jquery-migrate.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'Main/vendor/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+
+        <!-- PAGE LEVEL PLUGINS -->
+        <script src="{% static 'Main/vendor/jquery.easing.js' %}" type="text/javascript"></script>
+        <script src="{% static 'Main/vendor/jquery.back-to-top.js' %}" type="text/javascript"></script>
+        <script src="{% static 'Main/vendor/jquery.smooth-scroll.js' %}" type="text/javascript"></script>
+        <script src="{% static 'Main/vendor/jquery.wow.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'Main/vendor/swiper/js/swiper.jquery.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'Main/vendor/masonry/jquery.masonry.pkgd.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'Main/vendor/masonry/imagesloaded.pkgd.min.js' %}" type="text/javascript"></script>
+
+        <!-- PAGE LEVEL SCRIPTS -->
+        <script src="{% static 'Main/js/layout.js' %}" type="text/javascript"></script>
+        <script src="{% static 'Main/js/components/wow.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'Main/js/components/swiper.min.js' %}" type="text/javascript"></script>
+        <script src="{% static 'Main/js/components/masonry.min.js' %}" type="text/javascript"></script>
+
+    </body>
+    <!-- END BODY -->
+</html>

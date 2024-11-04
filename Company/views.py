@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from Guest.models import tbl_company
+from Guest.models import tbl_company,tbl_designer
 from Designer.models import tbl_design, tbl_designcopyright
 import os
 import cv2
@@ -7,43 +7,59 @@ import numpy as np
 # Create your views here.
 
 def homepage(request):
-    return render(request,"Company/HomePage.html")
+    if "cid" in request.session:
+        return render(request,"Company/HomePage.html")
+    else:
+        return redirect("Guest:login")
+
+def logout(request):
+    del request.session["cid"]
+    return redirect("Guest:login")
 
 def profile(request):
-    company = tbl_company.objects.get(id=request.session["cid"])
-    return render(request,"Company/MyProfile.html",{"company":company})
+    if "cid" in request.session:
+        company = tbl_company.objects.get(id=request.session["cid"])
+        return render(request,"Company/MyProfile.html",{"company":company})
+    else:
+        return redirect("Guest:login")
 
 def editprofile(request):
-    company = tbl_company.objects.get(id=request.session["cid"])
-    if request.method == "POST":
-        company.company_name = request.POST["txt_name"]
-        company.company_email = request.POST["txt_email"]
-        company.company_contact = request.POST["txt_contact"]
-        company.save()
-        return render(request,"Company/MyProfile.html",{"msg":"Profile updated"})
+    if "cid" in request.session:
+        company = tbl_company.objects.get(id=request.session["cid"])
+        if request.method == "POST":
+            company.company_name = request.POST["txt_name"]
+            company.company_email = request.POST["txt_email"]
+            company.company_contact = request.POST["txt_contact"]
+            company.save()
+            return render(request,"Company/MyProfile.html",{"msg":"Profile updated"})
+        else:
+            return render(request,"Company/EditProfile.html",{"company":company})
     else:
-        return render(request,"Company/EditProfile.html",{"company":company})
+        return redirect("Guest:login")
 
 def changepassword(request):
-    company = tbl_company.objects.get(id=request.session["cid"])
-    if request.method == "POST":
-        old_password = request.POST["txt_old"]
-        new_password = request.POST["txt_new"]
-        confirm_password = request.POST["txt_con"]
-        if company.company_password == old_password:
-            if new_password == confirm_password:
-                company.company_password = new_password
-                company.save()
-                return render(request,"Company/MyProfile.html",{"msg":"Password changed"})
+    if "cid" in request.session:
+        company = tbl_company.objects.get(id=request.session["cid"])
+        if request.method == "POST":
+            old_password = request.POST["txt_old"]
+            new_password = request.POST["txt_new"]
+            confirm_password = request.POST["txt_con"]
+            if company.company_password == old_password:
+                if new_password == confirm_password:
+                    company.company_password = new_password
+                    company.save()
+                    return render(request,"Company/MyProfile.html",{"msg":"Password changed"})
+                else:
+                    return render(request,"Company/ChangePassword.html",{"msg":"Confirm Passwords do not match"})
             else:
-                return render(request,"Company/ChangePassword.html",{"msg":"Confirm Passwords do not match"})
+                return render(request,"Company/ChangePassword.html",{"msg":"Old Password is incorrect"})
         else:
-            return render(request,"Company/ChangePassword.html",{"msg":"Old Password is incorrect"})
+            return render(request,"Company/ChangePassword.html")
     else:
-        return render(request,"Company/ChangePassword.html")
+        return redirect("Guest:login")
 
-def viewdesign(request):
-    design = tbl_design.objects.filter(design_status=0)
+def viewdesign(request, id):
+    design = tbl_design.objects.filter(design_status=0,designer=id)
     return render(request,"Company/View_Design.html",{"design":design})
 
 def viewdesigndetails(request,id):
@@ -72,12 +88,15 @@ def paymentsuc(request):
     return render(request,"Company/Payment_suc.html")
 
 def buydesign(request):
-    copy = tbl_designcopyright.objects.filter(company = request.session["cid"])
-    designid = []
-    for i in copy:
-        designid.append(i.design.id)
-    design = tbl_design.objects.filter(id__in=designid)
-    return render(request,"Company/Buy_design.html",{"design":design})
+    if "cid" in request.session:
+        copy = tbl_designcopyright.objects.filter(company = request.session["cid"])
+        designid = []
+        for i in copy:
+            designid.append(i.design.id)
+        design = tbl_design.objects.filter(id__in=designid)
+        return render(request,"Company/Buy_design.html",{"design":design})
+    else:
+        return redirect("Guest:login")
 
 def ImageEncode(designid,companyid):
         ds=tbl_design.objects.get(id=designid)
@@ -176,3 +195,13 @@ def decode(image_name):
         if decoded_data[-5:] == "=====":
             break
     return decoded_data[:-5]
+
+def searchdesigner(request):
+    if "cid" in request.session:
+        return render(request,"Company/SearchDesigner.html")
+    else:
+        return redirect("Guest:login")
+
+def ajaxdesigner(request):
+    designer = tbl_designer.objects.filter(designer_name__istartswith=request.GET.get("name"))
+    return render(request,"Company/AjaxDesigner.html",{"designer":designer})

@@ -9,7 +9,7 @@ urlpatterns = [
     path("editprofile/",views.editprofile,name="editprofile"),
     path("changepassword/",views.changepassword,name="changepassword"),
 
-    path("viewdesign/",views.viewdesign,name="viewdesign"),
+    path("viewdesign/<int:id>",views.viewdesign,name="viewdesign"),
     path("viewdesigndetails/<int:id>",views.viewdesigndetails,name="viewdesigndetails"),
 
     path('payment/<int:id>',views.payment,name="payment"),
@@ -17,4 +17,8 @@ urlpatterns = [
     path('paymentsuc/', views.paymentsuc, name='paymentsuc'),
 
     path('buydesign/', views.buydesign, name='buydesign'),
+    path('searchdesigner/', views.searchdesigner, name='searchdesigner'),
+    path('ajaxdesigner/', views.ajaxdesigner, name='ajaxdesigner'),
+
+    path("logout/", views.logout, name='logout'),
 ]

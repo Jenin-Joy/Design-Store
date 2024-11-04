@@ -1,9 +1,48 @@
+{% extends 'Company/Head.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        .card{
+            padding: 16px;
+            background-color: white;
+            box-shadow: 0 0 20px gray;
+            width: fit-content;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .main-cont{
+            font-size: 18px;
+        }
+        .desc-cont{
+            font-size: 14px;
+            width: 200px;
+        }
+        p {
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow-y: scroll;
+            display: -webkit-box;
+        }
+        p {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+        }
+    </style>
 </head>
 <body>
     <div class="card">
@@ -13,7 +52,8 @@
         <div>Designer : {{design.designer.designer_name}}</div>
         <div>Uploaded Date : {{design.design_upload_date}}</div>
         <div class="desc-cont">Description : <p>{{design.design_description}}</p></div>
-        <div><a href="{% url 'Company:payment' design.id %}">Buy</a></div>
+        <!-- <div><a href="{% url 'Company:payment' design.id %}">Buy</a></div> -->
     </div>
 </body>
 </html>
+{% endblock content %}

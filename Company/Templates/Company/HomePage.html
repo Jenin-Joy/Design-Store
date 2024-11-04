@@ -1,3 +1,5 @@
+{% extends 'Company/Head.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,8 +10,9 @@
 <body>
     Welcome Company
     <br>
-    <a href="{% url 'Company:profile' %}">My Profile</a>
-    <br><a href="{% url 'Company:viewdesign' %}">View Design</a>
+    <!-- <a href="{% url 'Company:profile' %}">My Profile</a>
     <br><a href="{% url 'Company:buydesign' %}">Purchased Design</a>
+    <br><a href="{% url 'Company:searchdesigner' %}">Search Designer</a> -->
 </body>
 </html>
+{% endblock content %}

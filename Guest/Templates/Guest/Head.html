@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+   
+    <head>
+        <meta charset="utf-8"/>
+        <title>Design Store</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport"/>
+        <meta content="FlameOnePage freebie theme for web startups by FairTech SEO." name="description"/>
+        <meta content="FairTech" name="author"/>
+        <link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link href="{% static 'Main/vendor/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'Main/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'Main/css/animate.css' %}" rel="stylesheet">
+        <link href="{% static 'Main/vendor/swiper/css/swiper.min.css' %}" rel="stylesheet" type="text/css"/>
+        <link href="{% static 'Main/css/layout.min.css' %}" rel="stylesheet" type="text/css"/>
+        <link rel="shortcut icon" href="favicon.ico"/>
+        <link rel="stylesheet" href="{% static 'Main/form.css' %}">
+        <style>
+            .logo {
+                display: flex;
+                font-size: 25px;
+                gap: 7px;
+                color: white;
+            }
+            .logo-color {
+                color: #ff0000;
+                font-weight: bold;
+            }
+            .logo-black{
+                color: black !important;
+            }
+            .header .navbar {
+                background-color: black;
+            }
+            .con {
+                padding-top: 150px;
+            }
+        </style>
+    </head>
+   
+  
+    <body id="body" data-spy="scroll" data-target=".header">
+
+          <header class="header navbar-fixed-top">
+              <nav class="navbar" role="navigation">
+                <div class="container">
+                      <div class="menu-container js_nav-item">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="toggle-icon"></span>
+                        </button>
+
+                          <div class="logo">
+                            <a class="logo-wrap" href="#body">
+                                <!-- <img class="logo-img logo-img-main" src="{% static 'Main/img/logo.png' %}" alt="FlameOnePage Logo">
+                                <img class="logo-img logo-img-active" src="{% static 'Main/img/logo-dark.png' %}" alt="FlameOnePage Dark Logo"> -->
+                                <div class="logo"><div class="logo-color">Design</div> <div id="store">Store</div></div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="collapse navbar-collapse nav-collapse">
+					
+					<!--div class="language-switcher">
+					  <ul class="nav-lang">
+                        <li><a class="active" href="#">EN</a></li>
+					    <li><a href="#">DE</a></li>
+						<li><a href="#">FR</a></li>
+					  </ul>
+					</div---> 
+					
+                        <div class="menu-container">
+                            <ul class="nav navbar-nav navbar-nav-right">
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'Guest:index' %}">Home</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'Guest:company' %}">Company</a></li>
+								<li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'Guest:designer' %}">Designer</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="{% url 'Guest:login' %}">Login</a></li>
+								<!-- <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#work">Credentials</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#pricing">Pricing</a></li>
+                                <li class="js_nav-item nav-item"><a class="nav-item-child nav-item-hover" href="#contact">Contact</a></li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+			</header>
+            <div id="tab" align="center" class="con">
+{% block content %}
+{% endblock content %}
+            </div>
+<!-- Back To Top -->
+ <a href="javascript:void(0);" class="js-back-to-top back-to-top">Top</a>
+
+ <!-- JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+ <!-- CORE PLUGINS -->
+ <script src="{% static 'Main/vendor/jquery.min.js' %}" type="text/javascript"></script>
+ <script src="{% static 'Main/vendor/jquery-migrate.min.js' %}" type="text/javascript"></script>
+ <script src="{% static 'Main/vendor/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+
+ <!-- PAGE LEVEL PLUGINS -->
+ <script src="{% static 'Main/vendor/jquery.easing.js' %}" type="text/javascript"></script>
+ <script src="{% static 'Main/vendor/jquery.back-to-top.js' %}" type="text/javascript"></script>
+ <script src="{% static 'Main/vendor/jquery.smooth-scroll.js' %}" type="text/javascript"></script>
+ <script src="{% static 'Main/vendor/jquery.wow.min.js' %}" type="text/javascript"></script>
+ <script src="{% static 'Main/vendor/swiper/js/swiper.jquery.min.js' %}" type="text/javascript"></script>
+ <script src="{% static 'Main/vendor/masonry/jquery.masonry.pkgd.min.js' %}" type="text/javascript"></script>
+ <script src="{% static 'Main/vendor/masonry/imagesloaded.pkgd.min.js' %}" type="text/javascript"></script>
+
+ <!-- PAGE LEVEL SCRIPTS -->
+ <script src="{% static 'Main/js/layout.js' %}" type="text/javascript"></script>
+ <script src="{% static 'Main/js/components/wow.min.js' %}" type="text/javascript"></script>
+ <script src="{% static 'Main/js/components/swiper.min.js' %}" type="text/javascript"></script>
+ <script src="{% static 'Main/js/components/masonry.min.js' %}" type="text/javascript"></script>
+
+</body>
+<!-- END BODY -->
+</html>
